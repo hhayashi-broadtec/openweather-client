@@ -10,6 +10,7 @@
 - React: UI構築のためのライブラリ
 - Axios: HTTPリクエストを行うためのライブラリ
 - React Navigation: 画面遷移を管理するためのライブラリ
+- @react-native-community/geolocation: デバイスの位置情報を取得するためのライブラリ
 
 ## ディレクトリ構造
 ```
