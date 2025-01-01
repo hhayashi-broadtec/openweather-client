@@ -1,25 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
+import Geolocation from '@react-native-community/geolocation';
 
 const LocationWeather = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
 
   useEffect(() => {
-    const fetchWeatherData = async () => {
+    const requestLocationPermission = async () => {
       try {
-        const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=${process.env.OPENWEATHER_API_KEY}`
+        Geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setLocation({ latitude, longitude });
+          },
+          (error) => {
+            setError(error.message);
+          },
+          { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
         );
-        setWeatherData(response.data);
       } catch (err) {
         setError(err.message);
       }
     };
 
-    fetchWeatherData();
+    requestLocationPermission();
   }, []);
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      if (location.latitude && location.longitude) {
+        try {
+          const response = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=${process.env.OPENWEATHER_API_KEY}`
+          );
+          setWeatherData(response.data);
+        } catch (err) {
+          setError(err.message);
+        }
+      }
+    };
+
+    fetchWeatherData();
+  }, [location]);
 
   if (error) {
     return (
