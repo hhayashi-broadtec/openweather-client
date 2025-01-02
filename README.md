@@ -15,15 +15,15 @@
 ## ディレクトリ構造
 ```
 openweather-client/
-├── App.js
+├── App.tsx
 ├── .env
 ├── src/
 │   ├── components/
-│   │   ├── CurrentWeather.js
-│   │   ├── WeeklyForecast.js
-│   │   └── LocationWeather.js
+│   │   ├── CurrentWeather.tsx
+│   │   ├── WeeklyForecast.tsx
+│   │   └── LocationWeather.tsx
 │   └── navigation/
-│       └── AppNavigator.js
+│       └── AppNavigator.tsx
 ```
 
 ## セットアップ手順
@@ -43,7 +43,12 @@ openweather-client/
    OPENWEATHER_API_KEY=your_api_key_here
    ```
 
-4. プロジェクトを起動します:
+4. TypeScriptの設定を追加します:
+   ```
+   npm install --save-dev typescript @types/react @types/react-native
+   ```
+
+5. プロジェクトを起動します:
    ```
    npm start
    ```
