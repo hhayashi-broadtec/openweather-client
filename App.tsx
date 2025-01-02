@@ -7,7 +7,7 @@ import LocationWeather from './src/components/LocationWeather';
 
 const Stack = createStackNavigator();
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="CurrentWeather">

@@ -2,9 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
 
-const CurrentWeather = () => {
-  const [weatherData, setWeatherData] = useState(null);
-  const [error, setError] = useState(null);
+interface WeatherData {
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  weather: {
+    description: string;
+  }[];
+}
+
+const CurrentWeather: React.FC = () => {
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchWeatherData = async () => {

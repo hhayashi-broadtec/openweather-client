@@ -2,9 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
 
-const WeeklyForecast = () => {
-  const [forecastData, setForecastData] = useState(null);
-  const [error, setError] = useState(null);
+interface ForecastData {
+  list: {
+    dt: number;
+    temp: {
+      day: number;
+    };
+    humidity: number;
+    weather: {
+      description: string;
+    }[];
+  }[];
+}
+
+const WeeklyForecast: React.FC = () => {
+  const [forecastData, setForecastData] = useState<ForecastData | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchForecastData = async () => {

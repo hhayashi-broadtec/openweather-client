@@ -3,10 +3,25 @@ import { View, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
 import Geolocation from '@react-native-community/geolocation';
 
-const LocationWeather = () => {
-  const [weatherData, setWeatherData] = useState(null);
-  const [error, setError] = useState(null);
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
+interface WeatherData {
+  main: {
+    temp: number;
+    humidity: number;
+  };
+  weather: {
+    description: string;
+  }[];
+}
+
+interface Location {
+  latitude: number | null;
+  longitude: number | null;
+}
+
+const LocationWeather: React.FC = () => {
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [location, setLocation] = useState<Location>({ latitude: null, longitude: null });
 
   useEffect(() => {
     const requestLocationPermission = async () => {
